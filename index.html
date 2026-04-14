@@ -454,12 +454,12 @@ const monoColors = [
 const { total, easy, medium, acceptance } = PORTFOLIO.stats;
 
 document.getElementById('topbar-name').textContent =
-  `${PORTFOLIO.name}  ·  IS 537  ·  BYU`;
+  `${PORTFOLIO.name}  ·  BYU`;
 document.getElementById('topbar-stats').textContent =
   `${total} problems  ·  ${acceptance} acceptance`;
 document.getElementById('hero-eyebrow').textContent = PORTFOLIO.course;
 document.getElementById('hero-sub').textContent =
-  `${PORTFOLIO.name}  ·  ${PORTFOLIO.semester}  ·  ${PORTFOLIO.language}`;
+  `${PORTFOLIO.name}  ·  ${PORTFOLIO.language}`;
 
 document.getElementById('stats-bar').innerHTML = `
   <div class="stat"><div class="stat-val blue">${total}</div><div class="stat-label">Solved</div></div>
