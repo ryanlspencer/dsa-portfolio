@@ -504,6 +504,34 @@ class Solution:
     def findCenter(self, edges):
         a, b = edges[0], edges[1]
         return a[0] if a[0] in b else a[1]`
+        }, 
+        {
+          num: "787",
+          title: "Cheapest Flights Within K Stops",
+          difficulty: "Medium",
+          summary: "Find the cheapest route from a source to a destination with at most k stops.",
+          time: "O(E * K)", space: "O(N + E)", technique: "BFS with stop-limit",
+          approach: "Build a graph from the flights list where each node points to its neighbors with costs. Use BFS starting from the source, where each level represents one additional stop. Track the cheapest cost to each node as we explore. For each neighbor, compute the new total cost and only continue if it improves the best known price. This ensures we explore valid paths within k stops while avoiding unnecessary work.",
+          code: `from collections import defaultdict, deque
+                class Solution:
+                    def findCheapestPrice(self, n, flights, src, dst, k):
+                        graph = defaultdict(list)
+                        for u, v, price in flights:
+                            graph[u].append((v, price))
+                        queue = deque([(src, 0)])
+                        prices = [float("inf")] * n
+                        prices[src] = 0
+                        stops = 0
+                        while queue and stops <= k:
+                            for _ in range(len(queue)):
+                                node, cost = queue.popleft()
+                                for nei, price in graph[node]:
+                                    new_cost = cost + price
+                                    if new_cost < prices[nei]:
+                                        prices[nei] = new_cost
+                                        queue.append((nei, new_cost))
+                            stops += 1
+                        return -1 if prices[dst] == float("inf") else prices[dst]`
         }
       ]
     }
