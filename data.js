@@ -1,6 +1,6 @@
 const PORTFOLIO = {
   name: "Logan Spencer",
-  course: "IS 537 · Data Structures & Algorithms · BYU",
+  course: "Data Structures & Algorithms · BYU",
   semester: "Spring 2026",
   language: "Python",
   stats: { total: 25, easy: 18, medium: 7, acceptance: "86.5%" },
