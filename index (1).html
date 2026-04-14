@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Structures Portfolio | Logan Spencer</title>
+<script src="data.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:          #f7f8fa;
+    --surface:     #ffffff;
+    --surface2:    #f0f2f5;
+    --border:      #e2e6ed;
+    --border2:     #c9d0dc;
+    --accent:      #2563eb;
+    --accent2:     #7c3aed;
+    --text:        #111827;
+    --sub:         #374151;
+    --muted:       #6b7280;
+    --easy:        #059669;
+    --med:         #d97706;
+    --easy-bg:     #ecfdf5;
+    --med-bg:      #fffbeb;
+    --easy-border: #a7f3d0;
+    --med-border:  #fde68a;
+    --code-bg:     #f8f9fb;
+    --code-text:   #1e293b;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Sora', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(circle, #c8d0df 1px, transparent 1px);
+    background-size: 28px 28px;
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    border-bottom: 1px solid var(--border);
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topbar-inner {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .topbar-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--sub);
+    letter-spacing: 0.05em;
+  }
+  .topbar-stats {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 68px 0 52px;
+    text-align: center;
+  }
+
+  .hero-eyebrow {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: var(--accent);
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 4px;
+    padding: 4px 12px;
+    margin-bottom: 26px;
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 5.5vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 14px;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .hero h1 .grad {
+    background: linear-gradient(120deg, var(--accent) 0%, var(--accent2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    color: var(--muted);
+    font-size: 0.93rem;
+    margin-bottom: 42px;
+  }
+
+  /* Stats bar */
+  .stats-bar {
+    display: flex;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    max-width: 500px;
+    margin: 0 auto 52px;
+    background: var(--surface);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .stat {
+    flex: 1;
+    padding: 15px 10px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .stat:last-child { border-right: none; }
+  .stat-val {
+    font-size: 1.45rem;
+    font-weight: 700;
+    font-family: 'DM Mono', monospace;
+    line-height: 1;
+  }
+  .stat-val.blue   { color: var(--accent); }
+  .stat-val.green  { color: var(--easy); }
+  .stat-val.yellow { color: var(--med); }
+  .stat-label {
+    font-size: 0.6rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 5px;
+  }
+
+  /* About */
+  .about-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 26px;
+    margin-bottom: 48px;
+    line-height: 1.72;
+    color: var(--sub);
+    font-size: 0.92rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  .about-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+
+  /* Section label */
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── TOPIC GROUP ── */
+  .topic-group {
+    margin-bottom: 8px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--surface);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+  .topic-group:hover {
+    border-color: var(--border2);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  .topic-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.12s;
+    gap: 14px;
+  }
+  .topic-header:hover { background: var(--surface2); }
+
+  .topic-left { display: flex; align-items: center; gap: 13px; }
+
+  .topic-monogram {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+    border: 1px solid;
+  }
+
+  .topic-name  { font-weight: 600; font-size: 0.9rem; color: var(--text); }
+  .topic-count { font-size: 0.7rem; color: var(--muted); font-family: 'DM Mono', monospace; margin-top: 1px; }
+
+  .chevron {
+    width: 17px; height: 17px;
+    color: var(--muted);
+    transition: transform 0.25s;
+    flex-shrink: 0;
+  }
+  .topic-group.open .chevron { transform: rotate(180deg); }
+
+  .topic-body {
+    display: none;
+    border-top: 1px solid var(--border);
+    background: #fafbfc;
+  }
+  .topic-group.open .topic-body { display: block; }
+
+  /* ── PROBLEM ── */
+  .problem { border-bottom: 1px solid var(--border); }
+  .problem:last-child { border-bottom: none; }
+
+  .problem-header {
+    display: flex;
+    align-items: center;
+    padding: 13px 20px;
+    cursor: pointer;
+    transition: background 0.1s;
+    gap: 12px;
+  }
+  .problem-header:hover { background: var(--surface); }
+
+  .problem-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.67rem;
+    color: var(--muted);
+    min-width: 28px;
+  }
+  .problem-title {
+    font-size: 0.87rem;
+    font-weight: 500;
+    flex: 1;
+    color: var(--text);
+  }
+  .problem-diff {
+    font-size: 0.62rem;
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 20px;
+    border: 1px solid;
+  }
+  .problem-diff.easy   { background: var(--easy-bg); color: var(--easy); border-color: var(--easy-border); }
+  .problem-diff.medium { background: var(--med-bg);  color: var(--med);  border-color: var(--med-border);  }
+
+  .problem-chevron {
+    width: 14px; height: 14px;
+    color: var(--muted);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .problem.open .problem-chevron { transform: rotate(180deg); }
+
+  .problem-body { display: none; padding: 4px 20px 22px; }
+  .problem.open .problem-body { display: block; }
+
+  .p-summary {
+    font-size: 0.85rem;
+    color: var(--sub);
+    line-height: 1.65;
+    margin-bottom: 16px;
+    padding-top: 6px;
+  }
+
+  /* Meta row */
+  .p-meta {
+    display: flex;
+    margin-bottom: 18px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .p-meta-item {
+    flex: 1;
+    padding: 9px 14px;
+    border-right: 1px solid var(--border);
+  }
+  .p-meta-item:last-child { border-right: none; }
+  .p-meta-key {
+    font-size: 0.58rem;
+    text-transform: uppercase;
+    letter-spacing: 0.13em;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 3px;
+  }
+  .p-meta-val {
+    font-size: 0.79rem;
+    font-family: 'DM Mono', monospace;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .p-section-title {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 7px;
+  }
+
+  .p-approach {
+    font-size: 0.86rem;
+    color: var(--sub);
+    line-height: 1.7;
+    margin-bottom: 18px;
+  }
+
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 15px 17px;
+    overflow-x: auto;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.76rem;
+    line-height: 1.72;
+    color: var(--code-text);
+    tab-size: 4;
+    white-space: pre;
+  }
+
+  footer {
+    text-align: center;
+    padding: 36px 0 24px;
+    color: var(--muted);
+    font-size: 0.73rem;
+    font-family: 'DM Mono', monospace;
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+    background: var(--surface);
+  }
+
+  @media (max-width: 600px) {
+    .stats-bar { flex-wrap: wrap; }
+    .stat { min-width: 50%; }
+    .p-meta { flex-wrap: wrap; }
+    .p-meta-item { min-width: 50%; }
+    .topbar-stats { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <span class="topbar-name" id="topbar-name"></span>
+    <span class="topbar-stats" id="topbar-stats"></span>
+  </div>
+</div>
+
+<div class="container">
+  <div class="hero">
+    <div class="hero-eyebrow" id="hero-eyebrow"></div>
+    <h1>Data Structures<br><span class="grad">Portfolio</span></h1>
+    <p class="hero-sub" id="hero-sub"></p>
+    <div class="stats-bar" id="stats-bar"></div>
+  </div>
+
+  <div class="about-card" id="about-card"></div>
+  <div class="section-label">Problems by Topic</div>
+  <div id="topics"></div>
+</div>
+
+<footer id="footer"></footer>
+
+<script>
+const chevronSVG = (cls) =>
+  `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+    <polyline points="6 9 12 15 18 9"/>
+  </svg>`;
+
+function esc(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// Per-topic monogram colors: [text, background, border]
+const monoColors = [
+  ['#2563eb','#eff6ff','#bfdbfe'],
+  ['#7c3aed','#f5f3ff','#ddd6fe'],
+  ['#059669','#ecfdf5','#a7f3d0'],
+  ['#d97706','#fffbeb','#fde68a'],
+  ['#dc2626','#fef2f2','#fecaca'],
+  ['#0891b2','#ecfeff','#a5f3fc'],
+  ['#65a30d','#f7fee7','#d9f99d'],
+  ['#be185d','#fdf2f8','#fbcfe8'],
+];
+
+// Static elements
+const { total, easy, medium, acceptance } = PORTFOLIO.stats;
+
+document.getElementById('topbar-name').textContent =
+  `${PORTFOLIO.name}  ·  IS 537  ·  BYU`;
+document.getElementById('topbar-stats').textContent =
+  `${total} problems  ·  ${acceptance} acceptance`;
+document.getElementById('hero-eyebrow').textContent = PORTFOLIO.course;
+document.getElementById('hero-sub').textContent =
+  `${PORTFOLIO.name}  ·  ${PORTFOLIO.semester}  ·  ${PORTFOLIO.language}`;
+
+document.getElementById('stats-bar').innerHTML = `
+  <div class="stat"><div class="stat-val blue">${total}</div><div class="stat-label">Solved</div></div>
+  <div class="stat"><div class="stat-val green">${easy}</div><div class="stat-label">Easy</div></div>
+  <div class="stat"><div class="stat-val yellow">${medium}</div><div class="stat-label">Medium</div></div>
+  <div class="stat"><div class="stat-val blue">${acceptance}</div><div class="stat-label">Acceptance</div></div>`;
+
+document.getElementById('about-card').innerHTML = PORTFOLIO.about;
+
+document.getElementById('footer').innerHTML = `
+  <div class="container">
+    ${PORTFOLIO.name} &nbsp;·&nbsp; ${PORTFOLIO.course} &nbsp;·&nbsp; ${PORTFOLIO.semester}<br>
+    <span style="display:block;margin-top:5px;color:#9ca3af;">
+      ${total} problems &nbsp;·&nbsp; ${acceptance} acceptance &nbsp;·&nbsp; ${PORTFOLIO.language}
+    </span>
+  </div>`;
+
+// Render topics
+const topicsEl = document.getElementById('topics');
+
+PORTFOLIO.topics.forEach((topic, ti) => {
+  const [mc, mbg, mbd] = monoColors[ti % monoColors.length];
+
+  const problemsHTML = topic.problems.map(p => {
+    const diffClass = p.difficulty.toLowerCase();
+    return `
+      <div class="problem">
+        <div class="problem-header" onclick="toggleProblem(this)">
+          <span class="problem-num">#${p.num}</span>
+          <span class="problem-title">${p.title}</span>
+          <span class="problem-diff ${diffClass}">${p.difficulty}</span>
+          ${chevronSVG('problem-chevron')}
+        </div>
+        <div class="problem-body">
+          <p class="p-summary">${p.summary}</p>
+          <div class="p-meta">
+            <div class="p-meta-item">
+              <div class="p-meta-key">Time</div>
+              <div class="p-meta-val">${p.time}</div>
+            </div>
+            <div class="p-meta-item">
+              <div class="p-meta-key">Space</div>
+              <div class="p-meta-val">${p.space}</div>
+            </div>
+            <div class="p-meta-item">
+              <div class="p-meta-key">Technique</div>
+              <div class="p-meta-val">${p.technique}</div>
+            </div>
+          </div>
+          <div class="p-section-title">Approach</div>
+          <p class="p-approach">${p.approach}</p>
+          <div class="p-section-title">Solution</div>
+          <pre>${esc(p.code)}</pre>
+        </div>
+      </div>`;
+  }).join('');
+
+  topicsEl.insertAdjacentHTML('beforeend', `
+    <div class="topic-group" id="${topic.id}">
+      <div class="topic-header" onclick="toggleGroup(this)">
+        <div class="topic-left">
+          <div class="topic-monogram" style="color:${mc};background:${mbg};border-color:${mbd}">
+            ${topic.monogram || topic.icon}
+          </div>
+          <div>
+            <div class="topic-name">${topic.name}</div>
+            <div class="topic-count">${topic.problems.length} problem${topic.problems.length !== 1 ? 's' : ''}</div>
+          </div>
+        </div>
+        ${chevronSVG('chevron')}
+      </div>
+      <div class="topic-body">${problemsHTML}</div>
+    </div>`);
+});
+
+function toggleGroup(h)   { h.closest('.topic-group').classList.toggle('open'); }
+function toggleProblem(h) { h.closest('.problem').classList.toggle('open'); }
+</script>
+</body>
+</html>
