@@ -3,7 +3,7 @@ const PORTFOLIO = {
   course: "Data Structures & Algorithms · BYU",
   semester: "Spring 2026",
   language: "Python",
-  stats: { total: 25, easy: 18, medium: 7, acceptance: "86.5%" },
+  stats: { total: 26, easy: 18, medium: 8, acceptance: "86.8%" },
   about: `A collection of 25 LeetCode problems organized by data structures and algorithmic patterns, including arrays, linked lists, trees, graphs, heaps, stacks, tries, and dynamic programming. Each solution includes reasoning, implementation, and complexity analysis.`,
 
   topics: [
